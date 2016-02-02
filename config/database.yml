@@ -24,6 +24,9 @@ default: &default
 development:
   <<: *default
   database: grammable_development
+  username: postgres
+  password: password
+  host: localhost
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,6 +61,9 @@ development:
 test:
   <<: *default
   database: grammable_test
+  username: postgres
+  password: password
+  host: localhost
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,5 +87,6 @@ test:
 production:
   <<: *default
   database: grammable_production
-  username: grammable
-  password: <%= ENV['GRAMMABLE_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: password
+  host: localhost
