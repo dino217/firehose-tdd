@@ -1,5 +1,12 @@
 class GramsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
+
+  def show
+    @gram = Gram.find_by_id(params[:id])
+    if @gram.nil?
+      render text: "404", status: :not_found
+    end
+  end
 
   def index
   end
