@@ -24,14 +24,14 @@ class GramsController < ApplicationController
     return render_not_found(:forbidden) if @gram.user != current_user
 
     @gram.update_attributes(gram_params)
-    redirect_to root_path if @gram.valid?
+    return redirect_to root_path if @gram.valid?
 
     render :edit, status: :unprocessable_entity
   end
 
   def create
     @gram = current_user.grams.create(gram_params)
-    if ! @gram.valid?
+    unless @gram.valid?
       render :new, status: :unprocessable_entity
     else
       redirect_to root_path
@@ -49,7 +49,7 @@ class GramsController < ApplicationController
   private
 
   def find_gram_by_id
-    @gram = Gram.find_gram_by_id(params[:id])
+    @gram = Gram.find_by_id(params[:id])
   end
 
   def gram_params
@@ -57,6 +57,6 @@ class GramsController < ApplicationController
   end
 
   def render_not_found(status = :not_found)
-    render text: "#{status.to_ s.titleize} :(", status: status
+    render text: "#{status.to_s.titleize} :(", status: status
   end
 end
